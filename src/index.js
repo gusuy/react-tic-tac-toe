@@ -101,10 +101,12 @@ import './index.css';
           desc = 'Go to game start';
           positionDesc = '';
         }
+        
+        const fontWeight = move === this.state.stepNumber ? {fontWeight: 'bold'} : {};
 
         return (
-          <li key={move}>
-            <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <li key={move} style={fontWeight}>
+            <button onClick={() => this.jumpTo(move)} style={fontWeight}>{desc}</button>
             <span> {positionDesc}</span>
           </li>
         )

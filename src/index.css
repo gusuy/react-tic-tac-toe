@@ -47,5 +47,6 @@ body {
   
   .game-info {
     margin-left: 20px;
+    min-width: 300px;
   }
   

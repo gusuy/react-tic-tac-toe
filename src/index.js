@@ -52,6 +52,7 @@ import './index.css';
       this.state = {
         history: [{
           squares: Array(9).fill(null),
+          moveSquareIndex: null,
         }],
         stepNumber: 0,
         xIsNext: true,
@@ -69,6 +70,7 @@ import './index.css';
       this.setState({
         history: history.concat([{
           squares: squares,
+          moveSquareIndex: i,
         }]),
         stepNumber: history.length,
         xIsNext: !this.state.xIsNext,
@@ -88,12 +90,22 @@ import './index.css';
       const winner = calculateWinner(current.squares);
 
       const moves = history.map((step, move) => {
-        const desc = move ?
-          'Go to move #' + move :
-          'Go to game start';
+        const position = getSquarePosition(step.moveSquareIndex);
+        let desc;
+        let positionDesc;
+
+        if (move) {
+          desc = 'Go to move #' + move;
+          positionDesc = '(col ' + position.col + ', row ' + position.row + ')';
+        } else {
+          desc = 'Go to game start';
+          positionDesc = '';
+        }
+
         return (
           <li key={move}>
             <button onClick={() => this.jumpTo(move)}>{desc}</button>
+            <span> {positionDesc}</span>
           </li>
         )
       });
@@ -147,4 +159,11 @@ import './index.css';
       }
     }
     return null;
+  }
+
+  function getSquarePosition(index) {
+    return {
+      col: (index % 3) + 1,
+      row: (Math.floor(index / 3)) + 1,
+    };
   }

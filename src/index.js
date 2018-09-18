@@ -53,6 +53,7 @@ import './index.css';
         }],
         stepNumber: 0,
         xIsNext: true,
+        movesAscending: true,
       };
     }
 
@@ -78,6 +79,12 @@ import './index.css';
       this.setState({
         stepNumber: step,
         xIsNext: (step % 2) === 0,
+      });
+    }
+
+    reorderMovesList() {
+      this.setState({
+        movesAscending: !this.state.movesAscending,
       });
     }
 
@@ -108,6 +115,9 @@ import './index.css';
           </li>
         )
       });
+      if (!this.state.movesAscending) {
+        moves.reverse();
+      }
 
       let status;
       if (winner) {
@@ -126,6 +136,7 @@ import './index.css';
           </div>
           <div className="game-info">
             <div>{status}</div>
+            <button onClick={() => this.reorderMovesList()}>Reorder {this.state.movesAscending ? 'Descending' : 'Ascending'}</button>
             <ol>{moves}</ol>
           </div>
         </div>

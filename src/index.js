@@ -7,6 +7,7 @@ import './index.css';
       <button 
         className="square"
         onClick={props.onClick}
+        style={props.style}
       >
         {props.value}
       </button>
@@ -15,11 +16,15 @@ import './index.css';
   
   class Board extends React.Component {
     renderSquare(i) {
+      const winIndices = this.props.winIndices;
+      const style = (winIndices && winIndices.includes(i)) ? {backgroundColor: 'yellow'} : null;
+
       return (
         <Square
           key={i}
           value={this.props.squares[i]}
           onClick={() => this.props.onClick(i)}
+          style={style}
         />
       );
     }
@@ -121,7 +126,7 @@ import './index.css';
 
       let status;
       if (winner) {
-        status = 'Winner: ' + winner;
+        status = 'Winner: ' + winner.symbol;
       } else {
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }
@@ -132,6 +137,7 @@ import './index.css';
             <Board
               squares={current.squares}
               onClick={(i) => this.handleClick(i)}
+              winIndices={winner ? winner.indices : null}
             />
           </div>
           <div className="game-info">
@@ -165,7 +171,10 @@ import './index.css';
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
+        return {
+          indices: lines[i],
+          symbol: squares[a],
+        };
       }
     }
     return null;

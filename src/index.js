@@ -93,6 +93,15 @@ import './index.css';
       });
     }
 
+    boardIsFull(squares) {
+      for (let i = 0; i < squares.length; i++) {
+        if (squares[i] === null) {
+          return false;
+        }
+      }
+      return true;
+    }
+
     render() {
       const history = this.state.history;
       const current = history[this.state.stepNumber];
@@ -127,6 +136,8 @@ import './index.css';
       let status;
       if (winner) {
         status = 'Winner: ' + winner.symbol;
+      } else if (this.boardIsFull(current.squares)) {
+        status = 'Draw!';
       } else {
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }

@@ -6,12 +6,12 @@ The following improvements have been implemented after the base tutorial:
 
 * Display the location of each move in the move history list.
 * Bold the currently selected item in the move list.
-* Generate the board with loops instead of hardcoding.
+* Automate initial board generation instead of hardcoding.
 * Add a button that toggles the order of the moves list.
-* Highlight the squares that won.
-* Display a message for draws.
+* Highlight the winning squares.
+* Add game end case for draws.
 
-See branch ```original-tutorial``` for the game before improvements.
+Checkout branch ```original-tutorial``` for the game before improvements.
 
 ### See It In Action
 
